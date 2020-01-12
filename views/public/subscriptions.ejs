@@ -1,0 +1,46 @@
+<%- include('../includes/head.ejs') %>
+
+<link rel="stylesheet" href="/css/subscriptions.css">
+</head>
+
+<%- include('../includes/nav.ejs') %>
+
+<h1>Subscriptions</h1>
+
+<% for(let [index, category] of categories.entries()) { %>
+    <div class="category_container">
+        <h3 class="category" onclick="onToggleCategory(<%= index %>)"><span><%= category.name %><span></h3>
+        <div class="category_items_container" id="category<%= index %>" style="display: none;">
+            <div class="category_items">
+                <% for(let subscription of category.subscriptions) { %>
+                    <div class="subscription_box">
+                        <h4 class="subscription_name"><%= subscription.name %></h4>
+                        <div class="subscription_image">
+                            <img src="http://localhost:5000/<%= subscription.imagePath %>">
+                        </div>
+                        <div class="subscription_description">
+                            <span><%= subscription.desc %>
+                        </div>
+                        <div class="subscription_link">
+                            <a href="#">Visit <%= subscription.name %></a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<script>
+    function onToggleCategory(index) {
+        let category = document.getElementById('category' + index);
+
+        if(category.style.display === 'none') {
+            category.style.display = 'block';
+        } else {
+            category.style.display = 'none';
+        }
+    }
+</script>
+
+<%- include('../includes/foot.ejs') %>
